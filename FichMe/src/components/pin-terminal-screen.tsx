@@ -140,21 +140,22 @@ export function PinTerminalScreen() {
           {/* Teclado numérico: dibujamos los botones 1 al 9 con un bucle */}
           <View className="w-64 flex-row flex-wrap justify-center gap-4">
             {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((digit) => (
-              <Pressable
-                key={digit}
-                onPress={() => handleDigit(digit)}
-                className="h-16 w-16 items-center justify-center rounded-full"
-                style={({pressed}) => ({ backgroundColor: settings.pinButtonColor, opacity: pressed ? 0.7 : 1})} >   
-                <Text className="text-xl font-semibold" style={{ color: pinTextColor }}>{digit}</Text>
+              <Pressable key={digit} onPress={() => handleDigit(digit)} style={{ opacity: feedback !== 'idle' ? 0.7 : 1 }}>
+                <View className="h-16 w-16 items-center justify-center rounded-full" style={{ backgroundColor: settings.pinButtonColor }}>
+                  <Text style={{ color: pinTextColor, fontSize: 24, fontWeight: '700', }}>
+                    {digit}
+                  </Text>
+                </View>
               </Pressable>
             ))}
             {/* Espacio vacío para que el 0 quede centrado en la última fila */}
             <View className="h-16 w-16" />
-            <Pressable
-              onPress={() => handleDigit('0')}
-              className="h-16 w-16 items-center justify-center rounded-full"
-              style={({pressed}) => ({ backgroundColor: settings.pinButtonColor, opacity: pressed ? 0.7 : 1 })}>
-              <Text className="text-xl font-semibold" style={{ color: pinTextColor }}>0</Text>
+           <Pressable onPress={() => handleDigit('0')}>
+              <View className="h-16 w-16 items-center justify-center rounded-full" style={{ backgroundColor: settings.pinButtonColor }}>
+                <Text style={{ color: pinTextColor, fontSize: 24, fontWeight: '700', }}>
+                  0
+                </Text>
+              </View>
             </Pressable>
             <Pressable
               onPress={handleBackspace}
