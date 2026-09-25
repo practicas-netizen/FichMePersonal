@@ -6,7 +6,7 @@ import { useAdminAuth } from '@/context/admin-auth-context';
 import { useTerminalSettings } from '@/context/terminal-settings-context';
 import { useI18n } from '@/i18n/i18n-context';
 
-// ⚠️ PIN de prueba — más adelante esto vendrá de un backend real
+//  PIN de prueba — más adelante esto vendrá de un backend real
 const FAKE_PIN = '1234';
 const PIN_LENGTH = 4;
 
@@ -82,6 +82,8 @@ export function PinTerminalScreen() {
   }
 
   const isDark = isColorDark(settings.backgroundColor);
+  const isPinButtonDark = isColorDark(settings.pinButtonColor);
+  const pinTextColor = isPinButtonDark ? '#FFFFFF' : '#0F172A';
   const textColor = isDark ? '#FFFFFF' : '#0F172A';
   const mutedColor = isDark ? 'rgba(255,255,255,0.6)' : 'rgba(15,23,42,0.6)';
 
@@ -142,8 +144,8 @@ export function PinTerminalScreen() {
                 key={digit}
                 onPress={() => handleDigit(digit)}
                 className="h-16 w-16 items-center justify-center rounded-full"
-                style={{ backgroundColor: settings.pinButtonColor }}>
-                <Text className="text-xl font-semibold text-white">{digit}</Text>
+                style={({pressed}) => ({ backgroundColor: settings.pinButtonColor, opacity: pressed ? 0.7 : 1})} >   
+                <Text className="text-xl font-semibold" style={{ color: pinTextColor }}>{digit}</Text>
               </Pressable>
             ))}
             {/* Espacio vacío para que el 0 quede centrado en la última fila */}
@@ -151,13 +153,13 @@ export function PinTerminalScreen() {
             <Pressable
               onPress={() => handleDigit('0')}
               className="h-16 w-16 items-center justify-center rounded-full"
-              style={{ backgroundColor: settings.pinButtonColor }}>
-              <Text className="text-xl font-semibold text-white">0</Text>
+              style={({pressed}) => ({ backgroundColor: settings.pinButtonColor, opacity: pressed ? 0.7 : 1 })}>
+              <Text className="text-xl font-semibold" style={{ color: pinTextColor }}>0</Text>
             </Pressable>
             <Pressable
               onPress={handleBackspace}
               className="h-16 w-16 items-center justify-center rounded-full"
-              style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(15,23,42,0.1)' }}>
+              style={({pressed}) => ({ backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(15,23,42,0.1)', opacity: pressed ? 0.7 : 1 })}>
               <Text style={{ color: textColor }} className="text-lg">⌫</Text>
             </Pressable>
           </View>
