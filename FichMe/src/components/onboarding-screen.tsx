@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { useTerminalSettings, type DateFormatOption } from '@/context/terminal-settings-context';
 import { useI18n } from '@/i18n/i18n-context';
+import { isColorDark } from '@/utils/colors';
 
 // Colores para elegir como fondo del terminal
 const BACKGROUND_COLORS = ['#0F172A', '#1E293B', '#052E16', '#3B0764', '#7C2D12', '#FFFFFF'];
@@ -118,13 +119,17 @@ export function OnboardingScreen() {
                   <Pressable
                     key={color}
                     onPress={() => updateSettings({ backgroundColor: color })}
-                    className="h-12 w-12 rounded-full border-2"
+                    className="h-12 w-12 rounded-full border-2 items-center justify-center"
                     style={{
                       backgroundColor: color,
                       // El círculo seleccionado tiene borde azul, los demás borde gris clarito
                       borderColor: settings.backgroundColor === color ? '#2563EB' : '#E2E8F0',
                     }}
-                  />
+                  >
+                    {settings.backgroundColor === color && (
+                      <Text style={{ color: isColorDark(color) ? '#FFFFFF' : '#0F172A' }}>✓</Text>
+                    )}
+                  </Pressable>
                 ))}
               </View>
             </View>
