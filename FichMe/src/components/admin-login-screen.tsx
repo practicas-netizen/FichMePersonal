@@ -70,7 +70,7 @@ export function AdminLoginScreen() {
         {/* Solo se muestra si error tiene texto dentro (no está vacío) */}
         {error ? <Text className="mb-4 text-red-500">{error}</Text> : null}
 
-        <Pressable onPress={handleLogin} className="mt-4 items-center rounded-lg bg-blue-600 py-3">
+        <Pressable onPress={handleLogin} style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]} className="mt-4 items-center rounded-2xl bg-blue-600 py-3">
           <Text className="font-semibold text-white">{t('login.submit')}</Text>
         </Pressable>
       </SafeAreaView>
