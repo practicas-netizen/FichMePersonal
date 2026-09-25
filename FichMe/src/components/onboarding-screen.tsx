@@ -143,12 +143,16 @@ export function OnboardingScreen() {
                   <Pressable
                     key={color}
                     onPress={() => updateSettings({ pinButtonColor: color })}
-                    className="h-12 w-12 rounded-full border-2"
+                    className="h-12 w-12 rounded-full border-2 items-center justify-center"
                     style={{
                       backgroundColor: color,
                       borderColor: settings.pinButtonColor === color ? '#0F172A' : '#E2E8F0',
                     }}
-                  />
+                  >
+                    { settings.pinButtonColor === color && (
+                      <Text style={{ color: isColorDark(color) ? '#FFFFFF' : '#0F172A' }}>✓</Text>
+                    )}
+                  </Pressable>
                 ))}
               </View>
             </View>
